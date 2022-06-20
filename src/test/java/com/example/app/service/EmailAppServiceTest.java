@@ -27,12 +27,12 @@ public class EmailAppServiceTest {
     @Test
     public void testMail() {
         EmailBean email = new EmailBean();
-        email.setFrom(javaMailSender.getUsername());
-        email.setTo(new String[]{javaMailSender.getUsername()});
+        email.setFrom(javaMailProperties.getUsername());
+        email.setTo(new String[]{javaMailProperties.getUsername()});
         email.setSubject("test subject");
         email.setText("test message");
         javaMailSender.send(email.transform());
-        try (Store store = javaMailSender.getSession().getStore(javaMailSender.getProtocol());){
+        try (Store store = javaMailSender.getSession().getStore(javaMailProperties.getProtocol());){
             if(!store.isConnected()) {
                 store.connect(javaMailProperties.getUsername(), javaMailProperties.getPassword());
             }
